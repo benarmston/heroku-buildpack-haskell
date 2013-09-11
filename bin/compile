@@ -8,7 +8,10 @@ BUILD_DIR=$1
 CACHE_DIR=$2
 
 if [ -z $PURGE_CACHE ] ; then
-    rm -rf $CACHE_DIR
+    :
+else
+  echo "-----> Downloading Cabal"
+  rm -rf $CACHE_DIR
 fi
 
 FIXED_HOME=/app
