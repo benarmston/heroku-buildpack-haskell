@@ -62,13 +62,13 @@ export LD_LIBRARY_PATH=$FIXED_HOME/usr/lib
 # Set PATH
 export PATH=$FIXED_HOME/ghc/bin:$FIXED_HOME/.cabal/bin$PATH
 
+cabal --version
 echo "-----> Updating Cabal"
 cabal update
 
 echo "-----> Release the hounds! Installing application"
 cd $BUILD_DIR
-echo cabal install -j5 --disable-library-profiling --disable-executable-profiling --disable-shared $CABAL_INSTALL_OPTS
-eval `echo cabal install -j5 --disable-library-profiling --disable-executable-profiling --disable-shared $CABAL_INSTALL_OPTS`
+cabal install -j5 --disable-library-profiling --disable-executable-profiling --disable-shared
 
 echo "-----> Caching Cabal packages"
 echo $FIXED_HOME/.ghc
