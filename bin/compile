@@ -26,15 +26,17 @@ fi
 
 # Restore GHC registry if available
 if [ -e $CACHE_DIR/dotghc ]; then
+  echo "-----> Restoring GHC registry"
   rm -rf $FIXED_HOME/app/.ghc
   mv $CACHE_DIR/dotghc $FIXED_HOME/.ghc
 fi
 
-if [ -e $CACHE_DIR/ghc/bin/ghc ]; then
-    $CACHE_DIR/ghc/bin/ghc --version
-fi
+# if [ -x $CACHE_DIR/ghc/bin/ghc ]; then
+#     $CACHE_DIR/ghc/bin/ghc --version
+# fi
 
 # Fix directory
+echo "-----> ls cache dir"
 ls $CACHE_DIR/ghc
 mv $CACHE_DIR/ghc $FIXED_HOME
 
@@ -43,6 +45,7 @@ mv $CACHE_DIR/ghc $FIXED_HOME
 
 # Restore Cabal cache or download an empty environemt
 if [ -e $CACHE_DIR/cabal ]; then
+  echo "-----> Restoring cached Cabal"
   rm -rf $FIXED_HOME/.cabal
   mv $CACHE_DIR/cabal $FIXED_HOME/.cabal
 elif [ ! -e $FIXED_HOME/.cabal ]; then
