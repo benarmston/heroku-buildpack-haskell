@@ -8,7 +8,7 @@ BUILD_DIR=$1
 CACHE_DIR=$2
 
 if [ -z $PURGE_CACHE ] ; then
-  echo "-----> Skipping purging cache"
+  :
 else
   echo "-----> Purging cache"
   rm -rf $CACHE_DIR
@@ -31,17 +31,8 @@ if [ -e $CACHE_DIR/dotghc ]; then
   mv $CACHE_DIR/dotghc $FIXED_HOME/.ghc
 fi
 
-# if [ -x $CACHE_DIR/ghc/bin/ghc ]; then
-#     $CACHE_DIR/ghc/bin/ghc --version
-# fi
-
 # Fix directory
-echo "-----> ls cache dir"
-ls $CACHE_DIR/ghc
 mv $CACHE_DIR/ghc $FIXED_HOME
-
-# file $FIXED_HOME/ghc/bin/ghc
-# $FIXED_HOME/ghc/bin/ghc --version
 
 # Restore Cabal cache or download an empty environemt
 if [ -e $CACHE_DIR/cabal ]; then
@@ -62,9 +53,16 @@ export LD_LIBRARY_PATH=$FIXED_HOME/usr/lib
 # Set PATH
 export PATH=$FIXED_HOME/ghc/bin:$FIXED_HOME/.cabal/bin$PATH
 
-cabal --version
-echo "-----> Updating Cabal"
-cabal update
+if [ -z $CABAL_UPDATE ]; then
+  :
+else
+  if [ -z $PURGE_CACHE ]; then
+      :
+  else
+    echo "-----> Updating Cabal"
+    cabal update
+  fi
+fi
 
 echo "-----> Release the hounds! Installing application"
 cd $BUILD_DIR
