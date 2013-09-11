@@ -8,9 +8,9 @@ BUILD_DIR=$1
 CACHE_DIR=$2
 
 if [ -z $PURGE_CACHE ] ; then
-    :
+  echo "-----> Skipping purging cache"
 else
-  echo "-----> Downloading Cabal"
+  echo "-----> Purging cache"
   rm -rf $CACHE_DIR
 fi
 
