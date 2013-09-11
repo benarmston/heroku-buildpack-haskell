@@ -30,8 +30,11 @@ if [ -e $CACHE_DIR/dotghc ]; then
   mv $CACHE_DIR/dotghc $FIXED_HOME/.ghc
 fi
 
+if [ -e $CACHE_DIR/ghc/bin/ghc ]; then
+    $CACHE_DIR/ghc/bin/ghc --version
+fi
+
 # Fix directory
-$CACHE_DIR/ghc/bin/ghc --version
 mv $CACHE_DIR/ghc $FIXED_HOME
 
 file $FIXED_HOME/ghc/bin/ghc
